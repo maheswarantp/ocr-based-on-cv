@@ -1,0 +1,14 @@
+fastapi
+typing
+pydantic
+
+tensorflow
+numpy
+matplotlib
+opencv-python
+
+python-dotenv
+uuid
+
+pandas
+uvicorn
