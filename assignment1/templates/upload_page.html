@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload and Display</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+    }
+    img {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Upload Image</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="imageFile" id="imageFile" accept="image/*">
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="output">
+        <!-- Image output will be displayed here -->
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('uploadForm');
+    const outputDiv = document.getElementById('output');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('imageFile', document.getElementById('imageFile').files[0]);
+
+        try {
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload image');
+            }
+
+            const responseData = await response.json();
+            const imageUrl = responseData.imageUrl;
+
+            outputDiv.innerHTML = `<img src="${imageUrl}" alt="Uploaded Image">`;
+        } catch (error) {
+            console.error(error);
+            outputDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
+    });
+</script>
+</body>
+</html>
