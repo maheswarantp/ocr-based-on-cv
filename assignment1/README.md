@@ -20,7 +20,8 @@
     ```
     http://localhost:8000/home
     ```
-
+- Put the model h5 files in model folder, obtained from here ->
+    [model file](https://drive.google.com/file/d/1pT7yb1RRkgU2jvBPEetv3vNbut8XzJau/view?usp=sharing)
 - U can use the application from there
 
 ![image](/assignment1/assets/asset1.jpg)
