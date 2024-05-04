@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 from typing import List
+import uuid
 
 def plot(img: np.ndarray):
     plt.figure(figsize=(20, 20))
@@ -38,7 +39,7 @@ def extract_horizontal_text_sections(image: np.ndarray, plot_graph: bool = False
     if in_text_section:
         sections.append((image[start : len(smoothed_projection), :, :], start, len(smoothed_projection)))
     
-    valid_sections = [i for i in sections if i.shape[0] >= 10]
+    valid_sections = [i for i in sections if i[0].shape[0] >= 10]
 
     if plot_graph:
         for index, section in enumerate(valid_sections):
@@ -88,6 +89,6 @@ def extract_sentence(image: np.ndarray, show_strips: bool = False):
     if show_strips:
         for index, image_strip in enumerate(image_strips):
             plot(image_strip)
-            plt.savefig(f"assets/extracted_sentence_{index}.png")
+            plt.savefig(f"assets/extracted_sentence_{uuid.uuid4()}_{index}.png")
 
-    return image_strips
+    return image_strips, bbox_substrings

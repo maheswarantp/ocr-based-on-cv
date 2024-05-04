@@ -4,7 +4,7 @@ from training_scripts.train import init_datagen
 import cv2
 from model.cnn_model import return_model
 import logging
-
+import uuid
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def classify_font_one_image(image: np.ndarray) -> any:
     img = cv2.resize(img, (256, 256))
     img = np.reshape(img, (1, 256, 256, 3))
     result = np.argmax(model.predict(img))
-    cv2.imwrite(f"assets/{labels[result]}-image.png", image)
+    cv2.imwrite(f"assets/{labels[result]}-{uuid.uuid4()}-image.png", image)
 
     # Get label names from somewhere
     return labels[result]
