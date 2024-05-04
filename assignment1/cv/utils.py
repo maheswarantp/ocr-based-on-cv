@@ -31,18 +31,18 @@ def extract_horizontal_text_sections(image: np.ndarray, plot_graph: bool = False
             start = i
             in_text_section = True
         elif value <= threshold and in_text_section:
-            sections.append(image[start: i, :, :])
+            sections.append((image[start: i, :, :], start, i))
             in_text_section = False
 
     # In case the last section does not end
     if in_text_section:
-        sections.append(image[start : len(smoothed_projection), :, :])
+        sections.append((image[start : len(smoothed_projection), :, :], start, len(smoothed_projection)))
     
     valid_sections = [i for i in sections if i.shape[0] >= 10]
 
     if plot_graph:
         for index, section in enumerate(valid_sections):
-            plot(section)
+            plot(section[0])
             plt.savefig(f"assets/horizontal_section_split_{index}.png")
     
     return valid_sections

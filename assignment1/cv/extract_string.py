@@ -13,7 +13,8 @@ def extract_string(image: np.ndarray):
     extracted_substrings_overall = []
     for horizontal_section in horizontal_sections_where_text_present:
         # Now get each instance of hello world string in one horizontal strip
-        extracted_substrings = extract_sentence(horizontal_section, show_strips=True)
+        print(horizontal_section[1:])
+        extracted_substrings = extract_sentence(horizontal_section[0], show_strips=True)
         extracted_substrings_overall.append(extracted_substrings)
 
     return list(itertools.chain(*extracted_substrings_overall))
