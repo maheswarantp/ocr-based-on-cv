@@ -2,8 +2,9 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from model.cnn_model import return_model
 import pandas as pd
+import os
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
-
+from training_scripts.dataset_generator import generate_dataset, font_urls
 
 def init_datagen(df, batch_size = 32, target_size = (256, 256)):
     datagen = ImageDataGenerator(
@@ -54,3 +55,30 @@ def init_training(df):
     history = model.fit(train_generator, validation_data=validation_generator, epochs=5, callbacks = callbacks_list)
 
     return model, history
+
+
+def model_evaluation(model):
+    # @TODO: Write code to plot cm, precision, recall, f1score and talk about observations here
+    pass
+
+def run_train():
+    # Check if dataset exists, else download
+    if not os.path.exists("/content/dataset"):
+        os.makedirs("/content/dataset", exist_ok=True)
+        generate_dataset(font_urls)
+    
+    image_paths = []
+    image_labels = []
+    for image in os.listdir("/content/dataset"):
+        image_paths.append(f"/content/dataset/{image}")
+        label = image.split('-')[0]
+        image_labels.append(label)
+
+    df = pd.DataFrame({
+        "image_paths":image_paths,
+        "image_labels":image_labels
+    })
+
+    model, history = init_training(df)
+
+    model_evaluation(model)
