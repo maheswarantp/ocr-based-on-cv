@@ -12,3 +12,6 @@ uuid
 
 pandas
 uvicorn
+aiosignal
+matplotlib 
+aiofiles
