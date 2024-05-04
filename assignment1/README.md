@@ -23,5 +23,5 @@
 
 - U can use the application from there
 
-![image](/assets/asset1.jpg)
-![image2](/assets/asset2.jpg)
+![image](/assignment1/assets/asset1.jpg)
+![image2](/assignment1/assets/asset2.jpg)
