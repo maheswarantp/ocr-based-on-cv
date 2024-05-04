@@ -33,7 +33,6 @@ def classify_font_one_image(image: np.ndarray) -> any:
 def classify_fonts(images: List[np.ndarray]) -> List[any]:
     output = []
     logger.info(f"Running classify_fonts on images: {len(images)}")
-    # datagen, train_generator, valid_generator = init_datagen()
     for image in images:
         result = classify_font_one_image(image)
         output.append(result)

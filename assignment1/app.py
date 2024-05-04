@@ -28,9 +28,6 @@ async def upload_image(image: UploadFile = File(...)):
         async with aiofiles.open(os.path.join(UPLOAD_DIRS, f"{image.filename}"), "wb") as file:
             await file.write(contents)
 
-        # with open(os.path.join(UPLOAD_DIRS, f"{image.filename}"), "wb") as file:
-        #     shutil.copyfileobj(image.file, file)
-
         result = run_custom_font_detector(os.path.join(UPLOAD_DIRS, image.filename))
         logger.info(result)
     except Exception as e:
@@ -40,13 +37,6 @@ async def upload_image(image: UploadFile = File(...)):
         await image.close()
     image_path = os.path.join("assets", "image_bbox_final.png")
     return FileResponse(path=image_path)
-
-#   <body>
-#     <form action='/upload' enctype='multipart/form-data' method='post'>
-#     <input name='image' type='file'>
-#     <input type='submit'>
-#     </form>
-#     </body>
 
 @app.get("/home")
 async def home():

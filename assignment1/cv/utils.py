@@ -74,7 +74,6 @@ def merge_boxes(image: np.ndarray):
     for i in range(len(bounding_boxes) // number_of_boxes):
         x1 = bounding_boxes[i * number_of_boxes : i * number_of_boxes + number_of_boxes][0][0]
         x2 = bounding_boxes[i * number_of_boxes : i * number_of_boxes + number_of_boxes][-1][0] + bounding_boxes[i * number_of_boxes : i * number_of_boxes + number_of_boxes][-1][2]
-        # bbox_substrings.append((x1 - 20, 0, abs(x2 - x1) + 20, height))
         bbox_substrings.append((x1, 0, abs(x2 - x1), height))
 
     return bbox_substrings

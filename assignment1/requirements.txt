@@ -15,3 +15,5 @@ uvicorn
 aiosignal
 matplotlib 
 aiofiles
+
+faker               # to generate random words for training
