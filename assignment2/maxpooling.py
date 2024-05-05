@@ -1,32 +1,35 @@
 import numpy as np
 
-def maxpooling(image, window_size):
-    """
-        Does MaxPooling on a given image array
-
-        Args:
-            image: numpy ndarray of shape mxm
-            window_size: window_size of type int
-        
-        Returns:
-            result: numpy ndarray of shape mxm
-    """
-    # @TODO: Implement padding
-
-    assert image.shape[0] == image.shape[1], "Image must be of shape mxm"
+def maxpool2d(image, k, s, padding = 'valid'):
     m = image.shape[0]
+    if padding == 'same':
+        output_size = m
+        
+        pad_total = max(((output_size - 1) * s) + k - m, 0)
+        pad_left = pad_total // 2
+        pad_right = pad_total - pad_left
+        pad_bottom = pad_total // 2
+        pad_top = pad_total - pad_bottom
 
-    result = np.zeros((m, m), dtype = image.dtype)
+        padded_matrix = np.zeros((m + pad_top + pad_bottom, m + pad_left + pad_right))
+        padded_matrix[pad_top : pad_top + m, pad_left : pad_left + m] = image
+    else:
+        output_size = ((m - k) // s) + 1
+        padded_matrix = image
 
-    for i in range(m - window_size + 1):
-        for j in range(m - window_size + 1):
-            window = image[i: i + window_size, j: j + window_size]
+    result = np.zeros((output_size, output_size))
+
+    for i in range(output_size):
+        for j in range(output_size):
+            window = padded_matrix[i * s : (i * s) + k, j * s : (j * s) + k]
             result[i, j] = np.max(window)
-
-
+    
     return result
 
-image = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-result = maxpooling(image, 2)
-print(result)
-print(result.shape)
+image = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]])
+
+print(maxpool2d(image, k = 2, s = 1, padding = 'valid'))
+print(maxpool2d(image, k = 2, s = 1, padding = 'valid'))
+print(maxpool2d(image, k = 3, s = 1, padding = 'valid'))
+
+print(maxpool2d(image, k = 2, s = 1, padding = 'same'))
