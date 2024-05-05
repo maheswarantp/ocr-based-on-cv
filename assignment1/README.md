@@ -26,3 +26,6 @@
 
 ![image](/assignment1/assets/asset1.jpg)
 ![image2](/assignment1/assets/asset2.jpg)
+
+
+- Jupyter notebook link which was used to train the model on colab -> [jupyter notebook](https://colab.research.google.com/drive/1v3BUy-0COgRQA8xmVBAVDRw2vNc3zjX1?usp=sharing)
