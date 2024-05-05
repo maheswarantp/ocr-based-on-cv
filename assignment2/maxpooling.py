@@ -5,6 +5,9 @@ def maxpool2d(image, k, s, padding = 'valid'):
     if padding == 'same':
         output_size = m
         
+        # op = int((m - k + 2p) / s) + 1
+        # 2p = max((op - 1) * s + k - m, 0)
+
         pad_total = max(((output_size - 1) * s) + k - m, 0)
         pad_left = pad_total // 2
         pad_right = pad_total - pad_left
